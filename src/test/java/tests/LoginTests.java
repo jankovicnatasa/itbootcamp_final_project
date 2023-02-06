@@ -3,10 +3,7 @@ package tests;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
@@ -27,7 +24,6 @@ public class LoginTests extends BaseTest {
         if ((actualUrl.contains("/home"))) {
             loginPage.getLogoutButton().click();
         }
-
     }
 
     @Test
@@ -56,7 +52,6 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(actualMessage, expectedMessage);
 
         visitTheLoginPage();
-
     }
 
     @Test
@@ -87,24 +82,16 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-
-    //•	Verifikovati da je dugme logout vidljivo na stranici
-    //•	Verifikovati da se nakon pokušaja otvaranja /home rute, u url-u stranice javlja
-    // /login ruta (otvoriti sa driver.get home page i proveriti da li vas redirektuje na login)
     public void logout() {
 
         loginPage.login("admin@admin.com", "12345");
 
-        loginPage.getLogoutButton().isDisplayed();
+        loginPage.getLogoutButton().isEnabled();
         loginPage.getLogoutButton().click();
 
         driver.get("https://vue-demo.daniel-avellaneda.com/home");
 
         String actualUrl = driver.getCurrentUrl();
         Assert.assertTrue(actualUrl.contains("/login"));
-
-
     }
-
-
 }
